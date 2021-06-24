@@ -8,6 +8,15 @@ import (
 	"testing"
 )
 
+func TestMain(m *testing.M) {
+	// before
+	fmt.Println("Sebelum Unit Test")
+	// eksekusi test semua testing dalam package
+	m.Run()
+	// after
+	fmt.Println("Setelah Unit Test")
+}
+
 func TestSkip(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		t.Skip("Can not run on Windows")
