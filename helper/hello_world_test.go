@@ -8,6 +8,18 @@ import (
 	"testing"
 )
 
+func TestSubTest(t *testing.T) {
+	t.Run("Bro", func(t *testing.T) {
+		result := HelloWold("Bro")
+		require.Equal(t, "Hello Bro", result)
+	})
+
+	t.Run("Agam", func(t *testing.T) {
+		result := HelloWold("Agam")
+		require.Equal(t, "Hello Agam", result)
+	})
+}
+
 func TestMain(m *testing.M) {
 	// before
 	fmt.Println("Sebelum Unit Test")
