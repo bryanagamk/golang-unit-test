@@ -8,6 +8,53 @@ import (
 	"testing"
 )
 
+func BenchmarkTable(b *testing.B) {
+	persons := []struct {
+		name string
+	}{
+		{
+			name: "Bro",
+		},
+		{
+			name: "Bryan",
+		},
+		{
+			name: "Kottama",
+		},
+		{
+			name: "Candra Gupta",
+		},
+	}
+
+	for _, person := range persons {
+		b.Run(person.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWold(person.name)
+			}
+		})
+	}
+}
+
+func BenchmarkHelloWoldSub(b *testing.B) {
+	b.Run("Bro", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWold("Bro")
+		}
+	})
+
+	b.Run("Kottama", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWold("Kottama")
+		}
+	})
+}
+
+func BenchmarkHelloWold(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWold("Bro")
+	}
+}
+
 func TestHelloWorldTable(t *testing.T) {
 	tests := []struct {
 		name     string
