@@ -1,5 +1,5 @@
 package helper
 
-func HelloWold(name string) string {
+func HelloWorld(name string) string {
 	return "Hello " + name
 }

@@ -2,10 +2,11 @@ package helper
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"runtime"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func BenchmarkTable(b *testing.B) {
@@ -29,29 +30,29 @@ func BenchmarkTable(b *testing.B) {
 	for _, person := range persons {
 		b.Run(person.name, func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
-				HelloWold(person.name)
+				HelloWorld(person.name)
 			}
 		})
 	}
 }
 
-func BenchmarkHelloWoldSub(b *testing.B) {
+func BenchmarkHelloWorldSub(b *testing.B) {
 	b.Run("Bro", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			HelloWold("Bro")
+			HelloWorld("Bro")
 		}
 	})
 
 	b.Run("Kottama", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			HelloWold("Kottama")
+			HelloWorld("Kottama")
 		}
 	})
 }
 
-func BenchmarkHelloWold(b *testing.B) {
+func BenchmarkHelloWorld(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		HelloWold("Bro")
+		HelloWorld("Bro")
 	}
 }
 
@@ -80,7 +81,7 @@ func TestHelloWorldTable(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			result := HelloWold(test.request)
+			result := HelloWorld(test.request)
 			require.Equal(t, test.expected, result)
 		})
 	}
@@ -88,12 +89,12 @@ func TestHelloWorldTable(t *testing.T) {
 
 func TestSubTest(t *testing.T) {
 	t.Run("Bro", func(t *testing.T) {
-		result := HelloWold("Bro")
+		result := HelloWorld("Bro")
 		require.Equal(t, "Hello Bro", result)
 	})
 
 	t.Run("Agam", func(t *testing.T) {
-		result := HelloWold("Agam")
+		result := HelloWorld("Agam")
 		require.Equal(t, "Hello Agam", result)
 	})
 }
@@ -112,34 +113,42 @@ func TestSkip(t *testing.T) {
 		t.Skip("Can not run on Windows")
 	}
 
-	result := HelloWold("Bro")
+	result := HelloWorld("Bro")
 	require.Equal(t, "Hello Bro", result, "Result must be Hello Bro")
 }
 
-func TestHelloWoldRequire(t *testing.T) {
-	result := HelloWold("Bro")
+func TestHelloWorldRequire(t *testing.T) {
+	result := HelloWorld("Bro")
 	require.Equal(t, "Hello Bro", result, "Result must be 'Hello Bro'")
-	fmt.Println("TestHelloWold with Require Done")
+	fmt.Println("TestHelloWorld with Require Done")
 }
 
-func TestHelloWoldAssertion(t *testing.T) {
-	result := HelloWold("Bro")
+func TestHelloWorldAssertion(t *testing.T) {
+	result := HelloWorld("Bro")
 	assert.Equal(t, "Hello Bro", result, "Result must be 'Hello Bro'")
-	fmt.Println("TestHelloWold with Assertion Done")
+	fmt.Println("TestHelloWorld with Assertion Done")
 }
 
-func TestHelloWold(t *testing.T) {
-	result := HelloWold("Bro")
+func TestHelloWorld(t *testing.T) {
+	result := HelloWorld("Bro")
 	if result != "Hello Bro" {
 		// unit test failed
 		panic("Result is not Hello Bro")
 	}
 }
 
-func TestHelloWoldAgam(t *testing.T) {
-	result := HelloWold("Agam")
+func TestHelloWorldAgamError(t *testing.T) {
+	result := HelloWorld("Agam")
 	if result != "Hello Agam" {
-		// unit test failed
-		panic("Result is not Hello Agam")
+		t.Error("Harusnya Hello Agam")
 	}
+	fmt.Println("Dieksekusi")
+}
+
+func TestHelloWorldAgamFatal(t *testing.T) {
+	result := HelloWorld("Agam")
+	if result != "Hello Agam" {
+		t.Fatal("Harusnya Hello Agam")
+	}
+	fmt.Println("Tidak Dieksekusi")
 }
